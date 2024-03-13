@@ -1,9 +1,9 @@
 {
-  "name": "electron-vue-vite",
-  "version": "2.0.0",
+  "name": "crrcdt",
+  "version": "1.0.0",
   "main": "dist-electron/main/index.js",
   "description": "Really simple Electron + Vue + Vite boilerplate.",
-  "author": "草鞋没号 <308487730@qq.com>",
+  "author": "中车数字",
   "license": "MIT",
   "private": true,
   "keywords": [
@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.3.3",
-    "electron": "^26.0.0",
+    "electron": "29.0.0",
     "electron-builder": "^24.6.3",
     "typescript": "^5.1.6",
     "vite": "^4.4.9",
