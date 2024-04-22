@@ -46,15 +46,16 @@ const appUrl = import.meta.env.VITE_APP_URL
 
 async function createWindow() {
     Menu.setApplicationMenu(null)
+    const { width, height } =  require('electron').screen.getPrimaryDisplay().workAreaSize;
     win = new BrowserWindow({
         title: '中车数字平台',
         icon: join(process.env.VITE_PUBLIC, 'favicon.ico'),
         // width: 1024,
         // height: 768,
-        // minWidth: 1024,
-        // minHeight: 768,
-        fullscreen: true, // 全屏
-        // simpleFullscreen:true,
+        // minWidth: '100%',
+        // minHeight: '100%',
+        // fullscreen: true, // 全屏
+        simpleFullscreen:true,
         webPreferences: {
             preload,
             // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
@@ -63,8 +64,20 @@ async function createWindow() {
             nodeIntegration: true,
             contextIsolation: false,
         },
+        titleBarStyle: 'hidden',
+        // titleBarOverlay: true,
+        titleBarOverlay: {
+            color: '#2f3241',
+            symbolColor: '#74b1be'
+        },
+        transparent: true, // 会隐藏放大按钮功能
+
+        // frame: false, //取消window自带的关闭最小化等
+        // resizable: false //禁止改变主窗口尺寸
     })
     win.maximize();
+
+
 
     // if (process.env.VITE_DEV_SERVER_URL) { // electron-vite-vue#298
     //   win.loadURL(url)
@@ -88,6 +101,7 @@ async function createWindow() {
         if (url.startsWith('https:')) shell.openExternal(url)
         return {action: 'deny'}
     })
+
     // win.webContents.on('will-navigate', (event, url) => { }) #344
 }
 
