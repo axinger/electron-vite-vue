@@ -46,7 +46,7 @@ const appUrl = import.meta.env.VITE_APP_URL
 
 async function createWindow() {
     Menu.setApplicationMenu(null)
-    const { width, height } =  require('electron').screen.getPrimaryDisplay().workAreaSize;
+    const {width, height} = require('electron').screen.getPrimaryDisplay().workAreaSize;
     win = new BrowserWindow({
         title: '中车数字平台',
         icon: join(process.env.VITE_PUBLIC, 'favicon.ico'),
@@ -55,7 +55,7 @@ async function createWindow() {
         // minWidth: '100%',
         // minHeight: '100%',
         // fullscreen: true, // 全屏
-        simpleFullscreen:true,
+        simpleFullscreen: true,
         webPreferences: {
             preload,
             // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
@@ -78,21 +78,22 @@ async function createWindow() {
     win.maximize();
 
 
-
-    // if (process.env.VITE_DEV_SERVER_URL) { // electron-vite-vue#298
-    //   win.loadURL(url)
-    //   // Open devTool if the app is not packaged
-    //   win.webContents.openDevTools()
-    // } else {
-    //   win.loadFile(indexHtml)
-    // }
     // win.webContents.openDevTools()
     // win.loadURL('http://localhost:12000')
-    await win.loadURL(appUrl)
+    await  win.loadURL(appUrl).catch(async e => {
+        console.log("加载错误={}", e.message)
+        if (process.env.VITE_DEV_SERVER_URL) { // electron-vite-vue#298
+            await win.loadURL(url)
+            // Open devTool if the app is not packaged
+            win.webContents.openDevTools()
+        } else {
+            await win.loadFile(indexHtml)
+        }
+    })
     // Test actively push message to the Electron-Renderer
     win.webContents.on('did-finish-load', () => {
         win?.webContents.send('main-process-message', new Date().toLocaleString())
-        // 存储数据到localStorage
+        // 存储数据到localStorage，类型未pc端
         win.webContents.executeJavaScript(`localStorage.setItem('loginType', 'pc')`);
     })
 
