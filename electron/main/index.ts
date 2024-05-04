@@ -64,16 +64,16 @@ async function createWindow() {
             nodeIntegration: true,
             contextIsolation: false,
         },
-        titleBarStyle: 'hidden',
-        // titleBarOverlay: true,
+        // titleBarStyle: 'hidden',
+        // // titleBarOverlay: true,
         titleBarOverlay: {
             color: '#2f3241',
             symbolColor: '#74b1be'
         },
-        transparent: true, // 会隐藏放大按钮功能
+        // transparent: true, // 会隐藏放大按钮功能
 
         // frame: false, //取消window自带的关闭最小化等
-        // resizable: false //禁止改变主窗口尺寸
+        resizable: false //禁止改变主窗口尺寸
     })
     win.maximize();
 
